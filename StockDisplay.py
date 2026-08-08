@@ -32,38 +32,86 @@ st.markdown(
     <style>
         @import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap');
 
+        :root {
+            color-scheme: dark;
+            --background-color: #0b1220;
+            --secondary-background-color: #111827;
+            --text-color: #e2e8f0;
+            --primary-color: #38bdf8;
+            --secondary-text-color: #94a3b8;
+            --border-color: rgba(148, 163, 184, 0.18);
+            --hover-background-color: rgba(56, 189, 248, 0.08);
+        }
+
         html, body, [class*="css"] {
             font-family: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
+            background-color: var(--background-color) !important;
+            color: var(--text-color) !important;
+        }
+
+        /* Make main app content take 70% of page width and center it */
+        .block-container,
+        .css-1v3fvcr,
+        [data-testid="stAppViewContainer"] > .main > div {
+            max-width: 70% !important;
+            width: 70% !important;
+            margin-left: auto !important;
+            margin-right: auto !important;
+        }
+
+        [data-testid="stAppViewContainer"],
+        [data-testid="stSidebar"],
+        .css-10trblm,
+        .css-1d391kg,
+        .css-1v3fvcr {
+            background-color: var(--background-color) !important;
+            color: var(--text-color) !important;
+        }
+
+        #MainMenu,
+        footer,
+        header,
+        [data-testid="stToolbar"] {
+            visibility: hidden !important;
+            height: 0 !important;
+            margin: 0 !important;
+            padding: 0 !important;
         }
 
         /* ---- Navigation ---- */
         .nav-container {
             background: linear-gradient(90deg, 
-                color-mix(in srgb, var(--primary-color) 8%, var(--secondary-background-color)) 0%,
+                color-mix(in srgb, var(--primary-color) 20%, var(--secondary-background-color)) 0%,
                 var(--secondary-background-color) 50%,
-                color-mix(in srgb, var(--primary-color) 5%, var(--secondary-background-color)) 100%);
-            padding: 16px 24px;
-            border-radius: 14px;
-            margin-bottom: 28px;
-            border: 1.5px solid color-mix(in srgb, var(--primary-color) 25%, transparent);
-            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
-            backdrop-filter: blur(10px);
+                color-mix(in srgb, var(--primary-color) 18%, var(--secondary-background-color)) 100%);
+            padding: 20px 28px;
+            border-radius: 16px;
+            /* place navigation at the top-right corner */
+            position: fixed;
+            top: 12px;
+            right: 12px;
+            margin: 0;
+            z-index: 9999;
+            border: 2.5px solid color-mix(in srgb, var(--primary-color) 60%, transparent);
+            box-shadow: 0 12px 32px rgba(56, 189, 248, 0.25);
+            backdrop-filter: blur(12px);
+            max-width: 500px;
         }
 
         .nav-title {
-            font-size: 0.75rem;
-            font-weight: 700;
+            font-size: 1.1rem;
+            font-weight: 900;
             text-transform: uppercase;
-            letter-spacing: 1.2px;
-            color: var(--text-color);
-            opacity: 0.55;
-            margin-bottom: 10px;
+            letter-spacing: 2px;
+            color: var(--primary-color);
+            opacity: 1;
+            margin-bottom: 18px;
             display: block;
         }
 
         .nav-buttons {
             display: flex;
-            gap: 8px;
+            gap: 14px;
             justify-content: center;
             flex-wrap: wrap;
         }
@@ -414,7 +462,7 @@ st.markdown(
         /* ---- Dividers ---- */
         hr {
             border-color: color-mix(in srgb, var(--text-color) 8%, transparent);
-            margin: 6px 0 18px 0;
+            margin: 6px 0 12px 0;
         }
         
         /* ---- Comparison Controls ---- */
@@ -436,23 +484,24 @@ st.markdown(
                 var(--secondary-background-color) 100%);
             border: 1px solid color-mix(in srgb, var(--primary-color) 25%, transparent);
             border-radius: 20px;
-            padding: 28px 28px 22px;
-            margin-bottom: 24px;
+            padding: 16px 28px 18px;
+            margin-bottom: 12px;
             box-shadow: 0 20px 45px rgba(0, 0, 0, 0.12);
+            margin-top: 2px;
         }
 
         .app-title {
             font-size: 2rem;
             font-weight: 800;
             line-height: 1.05;
-            margin-bottom: 8px;
+            margin-bottom: 4px;
         }
 
         .app-subtitle {
             font-size: 1.05rem;
             color: var(--text-color);
             opacity: 0.75;
-            margin-bottom: 22px;
+            margin-bottom: 16px;
         }
 
         .feature-grid {
@@ -1381,20 +1430,11 @@ def page_comparison():
 # MAIN APP ENTRY
 # ==========================================================
 
-st.markdown(
-    """
-    <div class="nav-container">
-        <span class="nav-title">Navigation</span>
-    </div>
-    """,
-    unsafe_allow_html=True,
-)
-
 tabs = st.tabs(["About", "Company Overview", "Company Comparison"])
 
 with tabs[0]:
     st.markdown(
-        """<div class="app-title">🚀 Venture Vista: Discover Company Trails</div>
+        """<div class="app-title">Venture Vista: Discover Company Trails</div>
         <div class="app-subtitle">Explore company financials and compare market leaders</div>""",
         unsafe_allow_html=True,
     )
